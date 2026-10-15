@@ -1,0 +1,1060 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上游 API 监控台</title>
+    <link rel="stylesheet" href="/styles.css?v=20261003-rate-history-columns" />
+    <link rel="stylesheet" href="/src/oauth-settings.css?v=20261008-oauth-concurrency" />
+    <link rel="stylesheet" href="/src/oauth-onboarding.css?v=20261007-oauth-layout" />
+    <link rel="stylesheet" href="/src/oauth-tasks-layout.css?v=20261007-oauth-layout" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主导航">
+        <div class="brand-block">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M5 18h6l4-10 5 18 3-8h4" />
+              <circle cx="11" cy="18" r="2" />
+              <circle cx="23" cy="18" r="2" />
+            </svg>
+          </span>
+          <div>
+            <p class="eyebrow">Relay Ops</p>
+            <h1>上游监控台</h1>
+          </div>
+        </div>
+
+        <nav class="tab-nav" aria-label="页面">
+          <a class="tab-button active" href="/sites" data-route-link data-tab="sites">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h10" />
+            </svg>
+            站点管理
+          </a>
+          <a class="tab-button" href="/groups" data-route-link data-tab="groups">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 7h14M7 12h10M9 17h6" />
+            </svg>
+            分组管理
+          </a>
+          <a class="tab-button" href="/rate-changes" data-route-link data-tab="rate-changes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 16 6-6 4 4 8-10M15 4h6v6" /></svg>
+            倍率变更
+          </a>
+          <a class="tab-button" href="/ip-management" data-route-link data-tab="ip-management">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3Z" />
+            </svg>
+            IP 管理
+          </a>
+          <a class="tab-button" href="/oauth-accounts" data-route-link data-tab="oauth-accounts">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4" /><path d="M2 21v-3a7 7 0 0 1 12-5M18 13v8m-4-4h8" /></svg>
+            账号入池
+          </a>
+          <a class="tab-button" href="/oauth-tasks" data-route-link data-tab="oauth-tasks">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h12v17H4V4h4m0-2h8v4H8Z M8 11h8M8 16h8" /></svg>
+            入池任务
+          </a>
+          <details class="config-menu">
+            <summary>
+              <a id="config-management-link" href="/settings" data-route-link>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 8.92 4a1.65 1.65 0 0 0 1-1.51V2a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.25.6.84 1 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+                </svg>
+                配置管理
+              </a>
+              <svg class="config-menu-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" />
+              </svg>
+            </summary>
+            <a id="settings-proxies-link" href="/settings/proxies" data-route-link data-setting-route="proxies">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 12h7M13 5h7M13 19h7M9 8l4 4-4 4" />
+              </svg>
+              代理配置
+            </a>
+            <a id="settings-auto-refresh-link" href="/settings/auto-refresh" data-route-link data-setting-route="auto-refresh">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              定时拉取
+            </a>
+            <a id="settings-my-sites-link" href="/settings/my-sites" data-route-link data-setting-route="my-sites">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7l8-4 8 4-8 4-8-4Zm0 5 8 4 8-4M4 17l8 4 8-4" />
+              </svg>
+              我的站点
+            </a>
+            <a id="settings-oauth-onboarding-link" href="/settings/oauth-onboarding" data-route-link data-setting-route="oauth-onboarding">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M13 3a4 4 0 0 1 0 8M22 21v-2a4 4 0 0 0-3-3.87" />
+                <circle cx="9" cy="7" r="4" />
+              </svg>
+              账号入池
+            </a>
+          </details>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="refresh-all" class="secondary-action full" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M21 12a9 9 0 0 1-15 6.7M3 20v-6h6" />
+            </svg>
+            同步全部上游
+          </button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section id="fleet-summary" class="summary-grid" aria-label="整体概览">
+          <article>
+            <span>站点数</span>
+            <strong id="metric-sites">0</strong>
+            <button id="metric-balance-alerts" class="metric-alert-link" type="button" disabled>余额不足：0</button>
+          </article>
+          <article>
+            <span>总余额</span>
+            <strong id="metric-balance">0.00 CNY</strong>
+          </article>
+          <article id="rate-change-card" class="rate-change-card" hidden>
+            <div class="rate-card-heading">
+              <h2>最近24小时倍率变更 <span id="rate-change-count">—</span></h2>
+              <a href="/rate-changes" data-route-link>查看更多 →</a>
+            </div>
+            <div id="rate-change-dashboard" class="rate-card-scroll" tabindex="0" aria-label="最近24小时倍率变更" aria-busy="false">
+              <div id="rate-change-dashboard-list"></div>
+              <div id="rate-change-dashboard-status" class="rate-status" role="status"></div>
+              <button id="rate-change-load-more" class="rate-text-button" type="button" hidden>加载更多</button>
+            </div>
+          </article>
+        </section>
+
+        <section id="sites-panel" class="panel-view" aria-labelledby="sites-heading">
+          <div class="panel-header">
+            <div>
+              <h3 id="sites-heading">站点状态</h3>
+              <p>默认读取数据库快照；点击同步才会拉取上游并覆盖旧快照。</p>
+            </div>
+            <div class="filters" aria-label="站点筛选">
+              <label>
+                <span>站点</span>
+                <span id="sites-site-filter" class="multi-select">
+                  <button id="sites-site-filter-trigger" class="multi-select-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                    <span id="sites-site-filter-label" class="multi-select-label">全部站点</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8 10l4 4 4-4" />
+                    </svg>
+                  </button>
+                  <span id="sites-site-filter-menu" class="multi-select-menu" hidden>
+                    <span id="sites-site-filter-selection" class="multi-select-selection" aria-live="polite" hidden>
+                      <span class="multi-select-selection-header">
+                        <span id="sites-site-filter-count" class="multi-select-selection-count"></span>
+                        <button id="sites-site-filter-clear" class="multi-select-clear" type="button">清空全部</button>
+                      </span>
+                      <span id="sites-site-filter-chips" class="multi-select-chips"></span>
+                    </span>
+                    <span class="dropdown-search">
+                      <input id="sites-site-filter-search" type="text" placeholder="输入关键字，空格分隔" aria-label="筛选站点" />
+                    </span>
+                    <span id="sites-site-filter-options" class="multi-select-options"></span>
+                  </span>
+                </span>
+              </label>
+              <label>
+                <span>关注</span>
+                <select id="sites-watch-filter">
+                  <option value="all" selected>全部</option>
+                  <option value="1">已关注</option>
+                  <option value="0">未关注</option>
+                </select>
+              </label>
+            </div>
+            <div class="panel-actions">
+              <label class="filter-toggle" title="只显示余额低于预警阈值的站点">
+                <input id="sites-balance-alert-filter" type="checkbox" />
+                余额不足
+              </label>
+              <button id="open-site-modal" class="primary-action" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                新增站点
+              </button>
+              <button id="refresh-sites-table" class="secondary-action" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M21 12a9 9 0 0 1-15 6.7M3 20v-6h6" />
+                </svg>
+                刷新表格
+              </button>
+              <button id="refresh-sites" class="secondary-action" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M21 12a9 9 0 0 1-15 6.7M3 20v-6h6" />
+                </svg>
+                同步全部
+              </button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>关注</th>
+                  <th>
+                    <button class="sort-header" type="button" data-group-sort="site" aria-label="按站点排序">
+                      <span>站点</span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 9l4-4 4 4M16 15l-4 4-4-4" />
+                      </svg>
+                    </button>
+                  </th>
+                  <th>类型</th>
+                  <th>代理</th>
+                  <th>余额</th>
+                  <th>预计归0</th>
+                  <th>分组</th>
+                  <th>Key</th>
+                  <th>连通性</th>
+                  <th>最近刷新</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="sites-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="oauth-tasks-panel" class="panel-view hidden" aria-label="入池任务"></section>
+        <section id="oauth-accounts-panel" class="panel-view hidden" aria-label="OpenAI OAuth 账号入池"></section>
+
+        <section id="rate-changes-panel" class="panel-view hidden" aria-labelledby="rate-changes-heading">
+          <div class="panel-header rate-history-header">
+            <div>
+              <h3 id="rate-changes-heading">倍率变更历史</h3>
+              <p>只读记录 · 默认全部历史；刷新不会同步上游。</p>
+            </div>
+            <button id="refresh-rate-changes" class="secondary-action" type="button">刷新记录</button>
+          </div>
+          <form id="rate-change-filters" class="rate-filters" role="search" aria-label="筛选倍率变更">
+            <label><span>站点</span><select id="rate-filter-site" name="siteId"><option value="">全部站点</option></select></label>
+            <label class="rate-query-field"><span>站点 / 分组关键词</span><input id="rate-filter-query" name="q" type="search" placeholder="搜索站点或分组…" autocomplete="off" /></label>
+            <label><span>方向</span><select id="rate-filter-direction" name="direction"><option value="">全部变化</option><option value="up">上涨</option><option value="down">下跌</option></select></label>
+            <label><span>时间范围</span><select id="rate-filter-window" name="window"><option value="all">全部历史</option><option value="24h">最近24小时</option></select></label>
+            <button class="secondary-action" type="submit">查询</button>
+          </form>
+          <div class="rate-column-toolbar">
+            <span class="rate-column-tip">拖动列头调整顺序 <span>· 也可用左右按钮或 Alt + ← / →</span></span>
+            <span class="rate-column-save"><span id="rate-column-status" role="status" aria-live="polite"></span><button id="rate-column-retry" class="rate-text-button" type="button" hidden>重试</button></span>
+          </div>
+          <div id="rate-change-history-scroll" class="rate-history-scroll" aria-busy="false" tabindex="0" aria-label="倍率历史表格，可横向滚动">
+            <table id="rate-change-history-table" class="rate-history-table" aria-label="倍率变更历史">
+              <colgroup id="rate-change-history-columns"></colgroup>
+              <thead><tr id="rate-change-history-head"></tr></thead>
+              <tbody id="rate-change-history-list" class="rate-history-list"></tbody>
+            </table>
+            <div id="rate-change-history-status" class="rate-status" role="status"></div>
+          </div>
+          <div class="rate-pagination" aria-label="倍率变更分页">
+            <span id="rate-change-page-info" aria-live="polite"></span>
+            <div>
+              <button id="rate-change-prev" class="secondary-action" type="button" disabled>上一页</button>
+              <button id="rate-change-next" class="secondary-action" type="button" disabled>下一页</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="groups-panel" class="panel-view hidden" aria-label="分组状态">
+          <div class="panel-header">
+            <div class="preset-bar" aria-label="筛选预设">
+              <div id="group-preset-dropdown" class="preset-dropdown">
+                <button id="group-preset-trigger" class="preset-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="group-preset-label" class="preset-label">选择预设</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 10l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul id="group-preset-menu" class="preset-menu" role="listbox" hidden></ul>
+              </div>
+              <button id="save-group-filter-preset" class="secondary-action table-refresh-action" type="button" aria-label="保存筛选预设" title="保存筛选预设">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </button>
+              <button id="edit-group-filter-preset" class="secondary-action table-refresh-action" type="button" aria-label="修改筛选预设" title="修改筛选预设" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 20h4l11-11-4-4L4 16v4zM13.5 6.5l4 4" />
+                </svg>
+              </button>
+              <button id="delete-group-filter-preset" class="secondary-action table-refresh-action" type="button" aria-label="删除筛选预设" title="删除筛选预设" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 7h16M9 7V5h6v2m-8 0 1 13h8l1-13" />
+                </svg>
+              </button>
+            </div>
+            <div class="filters" aria-label="分组筛选">
+              <label>
+                <span>倍率</span>
+                <span class="multiplier-range">
+                  <input id="group-multiplier-min" type="number" min="0" step="0.001" value="0" aria-label="倍率下限" />
+                  <span class="multiplier-sep">-</span>
+                  <input id="group-multiplier-max" type="number" min="0" step="0.001" value="100" aria-label="倍率上限" />
+                </span>
+              </label>
+              <label>
+                <span>模型</span>
+                <select id="group-model-filter">
+                  <option value="all">全部模型</option>
+                </select>
+              </label>
+              <label>
+                <span>平台</span>
+                <select id="group-platform-filter">
+                  <option value="all">全部平台</option>
+                  <option value="openai">OpenAI</option>
+                  <option value="anthropic">Anthropic</option>
+                  <option value="grok">Grok</option>
+                  <option value="gemini">Gemini</option>
+                </select>
+              </label>
+              <label>
+                <span>站点</span>
+                <select id="group-site-filter">
+                  <option value="all">全部站点</option>
+                </select>
+              </label>
+              <label>
+                <span>Key</span>
+                <select id="group-key-filter">
+                  <option value="1" selected>有 Key</option>
+                  <option value="all">全部</option>
+                </select>
+              </label>
+              <label>
+                <span>分组</span>
+                <span id="group-my-group-filter" class="multi-select">
+                  <button id="group-my-group-filter-trigger" class="multi-select-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                    <span id="group-my-group-filter-label" class="multi-select-label">全部分组</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8 10l4 4 4-4" />
+                    </svg>
+                  </button>
+                  <span id="group-my-group-filter-menu" class="multi-select-menu" hidden>
+                    <span id="group-my-group-filter-selection" class="multi-select-selection" aria-live="polite" hidden>
+                      <span class="multi-select-selection-header">
+                        <span id="group-my-group-filter-count" class="multi-select-selection-count"></span>
+                        <button id="group-my-group-filter-clear" class="multi-select-clear" type="button">清空全部</button>
+                      </span>
+                      <span id="group-my-group-filter-chips" class="multi-select-chips"></span>
+                    </span>
+                    <span class="dropdown-search">
+                      <input id="group-my-group-filter-search" type="text" placeholder="输入关键字，空格分隔" aria-label="筛选分组" />
+                    </span>
+                    <span id="group-my-group-filter-options" class="multi-select-options"></span>
+                  </span>
+                </span>
+              </label>
+              <label>
+                <span>可调度</span>
+                <select id="group-schedulable-filter">
+                  <option value="all" selected>全部</option>
+                  <option value="1">可调度</option>
+                  <option value="0">不可调度</option>
+                </select>
+              </label>
+              <button id="refresh-groups-table" class="secondary-action table-refresh-action" type="button" aria-label="刷新表格" title="刷新表格">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M21 12a9 9 0 0 1-15 6.7M3 20v-6h6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <button class="sort-header" type="button" data-group-sort="site" aria-label="按站点排序">
+                      <span>站点</span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 9l4-4 4 4M16 15l-4 4-4-4" />
+                      </svg>
+                    </button>
+                  </th>
+                  <th>分组</th>
+                  <th>平台</th>
+                  <th>
+                    <button class="sort-header" type="button" data-group-sort="multiplier" aria-label="按倍率排序">
+                      <span>倍率</span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 9l4-4 4 4M16 15l-4 4-4-4" />
+                      </svg>
+                    </button>
+                  </th>
+                  <th>Key</th>
+                  <th>API Key</th>
+                  <th>余额</th>
+                  <th>模型选择</th>
+                  <th>
+                    <div class="test-all-header">
+                      <span>测试模型</span>
+                      <button id="test-all-filtered-models" class="model-action" type="button"
+                        title="测试当前筛选出的全部分组" aria-label="测试当前筛选出的全部分组">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M21 12a9 9 0 0 1-15 6.7M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M3 20v-6h6" />
+                        </svg>
+                      </button>
+                    </div>
+                  </th>
+                  <th>状态</th>
+                  <th>hvoy_score</th>
+                  <th>最近刷新</th>
+                  <th>我的站点</th>
+                </tr>
+              </thead>
+              <tbody id="groups-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="ip-management-panel" class="panel-view hidden" aria-labelledby="ip-management-title">
+          <div class="panel-header">
+            <div>
+              <h3 id="ip-management-title">IP 管理</h3>
+              <p>批量导入代理 IP（支持 ip:port:username:password，默认按 socks5 导入），先按地址、端口、用户名、密码去重后命名；测试显示服务端访问的出口位置。</p>
+            </div>
+            <div class="panel-actions">
+              <button id="bulk-proxy-test" class="secondary-action" type="button" hidden>批量测试</button>
+              <button id="bulk-proxy-map" class="secondary-action" type="button" hidden>批量映射</button>
+              <button id="open-proxy-export" class="secondary-action" type="button" hidden>导出</button>
+              <button id="bulk-proxy-delete" class="secondary-action danger-action" type="button" hidden>批量删除</button>
+              <button id="open-proxy-import" class="secondary-action" type="button">批量导入</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="ip-management-table">
+              <colgroup><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /></colgroup>
+              <thead>
+                <tr>
+                  <th class="checkbox-cell"><input id="proxy-select-all" type="checkbox" aria-label="全选代理" /></th>
+                  <th>名称</th>
+                  <th>服务商</th>
+                  <th>协议</th>
+                  <th>地址</th>
+                  <th>连通性</th>
+                  <th>出口位置 / IP</th>
+                  <th>认证</th>
+                  <th>站点数</th>
+                  <th>状态</th>
+                  <th>到期</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="ip-management-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="settings-proxies-panel" class="panel-view hidden" aria-labelledby="proxy-form-title">
+          <div class="panel-header">
+            <div>
+              <h3 id="proxy-form-title">代理配置</h3>
+              <p>管理访问上游使用的代理，站点表单可按需绑定；下方表格列出全部代理及关联站点数。批量导入请前往「IP 管理」。</p>
+            </div>
+          </div>
+          <form id="proxy-form" class="site-form">
+            <div class="form-grid">
+              <label>
+                <span>名称</span>
+                <input name="name" placeholder="例如 sub2.example.test bridge" required />
+              </label>
+              <label>
+                <span>服务商</span>
+                <input name="provider" list="proxy-provider-options" maxlength="100" autocomplete="off" placeholder="输入或选择已有服务商（可选）" />
+              </label>
+              <label>
+                <span>协议</span>
+                <select name="protocol">
+                  <option value="http">HTTP</option>
+                  <option value="https">HTTPS</option>
+                  <option value="socks5">SOCKS5</option>
+                  <option value="socks5h">SOCKS5H</option>
+                </select>
+              </label>
+              <label>
+                <span>Host</span>
+                <input name="host" placeholder="host.docker.internal" required />
+              </label>
+              <label>
+                <span>端口</span>
+                <input name="port" type="number" min="1" max="65535" placeholder="17896" required />
+              </label>
+              <label>
+                <span>用户名</span>
+                <input name="username" autocomplete="off" placeholder="可选" />
+              </label>
+              <label>
+                <span>密码</span>
+                <input name="password" type="text" autocomplete="off" placeholder="可选，明文保存" />
+              </label>
+              <label>
+                <span>状态</span>
+                <select name="status">
+                  <option value="active">启用</option>
+                  <option value="inactive">停用</option>
+                </select>
+              </label>
+              <label>
+                <span>到期时间</span>
+                <input name="expires_at" type="datetime-local" />
+              </label>
+            </div>
+            <div class="modal-actions">
+              <button id="proxy-form-reset" class="secondary-action" type="button">清空</button>
+              <button id="proxy-submit" class="primary-action" type="submit">保存代理</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>服务商</th>
+                  <th>协议</th>
+                  <th>地址</th>
+                  <th>连通性</th>
+                  <th>出口位置 / IP</th>
+                  <th>认证</th>
+                  <th>站点数</th>
+                  <th>状态</th>
+                  <th>到期</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="proxies-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="settings-auto-refresh-panel" class="panel-view hidden" aria-labelledby="settings-auto-refresh-heading">
+          <div class="panel-header">
+            <div>
+              <h3 id="settings-auto-refresh-heading">定时拉取</h3>
+              <p id="auto-refresh-summary"></p>
+            </div>
+          </div>
+          <form id="auto-refresh-form" class="site-form">
+              <label class="switch-field">
+                <span>启用定时拉取</span>
+                <input id="auto-refresh-enabled" name="enabled" type="checkbox" />
+              </label>
+            <div class="refresh-rules-header">
+              <div><h4>专属规则</h4><p>为指定站点设置独立同步间隔，每个站点只能加入一条规则。</p></div>
+              <button id="auto-refresh-add-rule" class="secondary-action" type="button">添加规则</button>
+            </div>
+            <div id="auto-refresh-rules"></div>
+            <fieldset class="refresh-default">
+              <legend>默认配置</legend>
+              <p>未加入任何专属规则的站点，使用以下间隔。</p>
+              <div class="form-grid">
+              <label>
+                <span>间隔</span>
+                <input id="auto-refresh-interval-value" name="interval_value" type="number" min="5" step="1" required />
+              </label>
+              <label>
+                <span>单位</span>
+                <select id="auto-refresh-interval-unit" name="interval_unit">
+                  <option value="minutes">分钟</option>
+                  <option value="hours">小时</option>
+                  <option value="days">天</option>
+                </select>
+              </label>
+              </div>
+            </fieldset>
+            <div class="modal-actions">
+              <button id="auto-refresh-submit" class="primary-action" type="submit">保存配置</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="settings-oauth-onboarding-panel" class="panel-view hidden" aria-labelledby="oauth-settings-heading"></section>
+
+        <section id="settings-my-sites-panel" class="panel-view hidden" aria-labelledby="my-sites-panel-title">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">My Sites</p>
+              <h3 id="my-sites-panel-title">我的站点</h3>
+              <p>管理自己的 sub2api 站点，用于创建账号并跟随上游分组倍率。</p>
+            </div>
+          </div>
+          <form id="my-site-form" class="site-form">
+            <h3 id="my-site-form-title">新增站点</h3>
+            <div class="form-grid">
+              <label>
+                <span>名称</span>
+                <input name="name" placeholder="例如 我的 sub2api 主站" required />
+              </label>
+              <label>
+                <span>类型</span>
+                <select name="type">
+                  <option value="sub2api">sub2api</option>
+                  <option value="new-api" disabled>new-api（暂不支持）</option>
+                </select>
+              </label>
+              <label>
+                <span>站点 URL</span>
+                <input name="url" placeholder="https://api.example.com" required />
+              </label>
+              <label>
+                <span>管理员 Key</span>
+                <input name="admin_key" autocomplete="off" placeholder="管理后台设置的 Admin API Key，明文保存" required />
+              </label>
+            </div>
+            <div class="modal-actions">
+              <button id="my-site-form-reset" class="secondary-action" type="button">清空</button>
+              <button id="my-site-submit" class="primary-action" type="submit">保存站点</button>
+            </div>
+          </form>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>类型</th>
+                  <th>URL</th>
+                  <th>管理员 Key</th>
+                  <th>创建时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="my-sites-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <dialog id="site-modal" class="site-modal">
+      <form id="site-form" class="site-form" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Site</p>
+            <h3 id="site-modal-title">新增站点</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <label data-field="name">
+            <span>站点名称</span>
+            <input name="name" autocomplete="organization" placeholder="例如 Zilan 主站" required />
+          </label>
+          <label data-field="url">
+            <span>站点 URL</span>
+            <input name="url" inputmode="url" placeholder="https://relay.example.com" required />
+          </label>
+          <label data-field="base_url">
+            <span>Base URL（测速/模型请求用，留空同站点 URL）</span>
+            <input name="base_url" inputmode="url" placeholder="留空则与站点 URL 一致" />
+          </label>
+          <label>
+            <span>站点类型</span>
+            <select name="type" id="site-type">
+              <option value="sub2api">sub2api</option>
+              <option value="new-api">new-api</option>
+              <option value="other">其他</option>
+            </select>
+          </label>
+          <label data-field="sync_variant" hidden>
+            <span>同步方式</span>
+            <select name="sync_variant" id="site-sync-variant">
+              <option value="standard">标准</option>
+              <option value="credential-flow">凭据流（加密登录+验证码）</option>
+            </select>
+          </label>
+          <label data-field="username">
+            <span>登录账号</span>
+            <input name="username" autocomplete="username" placeholder="邮箱，用于会话过期自动重登" />
+          </label>
+          <label data-field="new_api_user_id" hidden>
+            <span>用户 ID</span>
+            <input name="new_api_user_id" inputmode="numeric" autocomplete="off" placeholder="数字 ID，用于 new-api-user 请求头" />
+          </label>
+          <label data-field="password">
+            <span>密码</span>
+            <input name="password" type="text" autocomplete="off" placeholder="明文保存" />
+          </label>
+          <label>
+            <span>代理</span>
+            <select name="proxy_id" id="site-proxy-id">
+              <option value="">直连</option>
+            </select>
+          </label>
+          <label data-field="usd_to_cny_rate">
+            <span>USD 换算倍率（1 USD = ? CNY）</span>
+            <input
+              name="usd_to_cny_rate"
+              type="number"
+              inputmode="decimal"
+              min="0.000001"
+              step="any"
+              value="1"
+              required
+            />
+          </label>
+          <label data-field="balance_alert">
+            <span>余额预警（低于该值标红闪烁，0 不提醒）</span>
+            <input
+              name="balance_alert"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="any"
+              value="0"
+              required
+            />
+          </label>
+          <label data-field="depletion_alert_hours">
+            <span>预计归0预警（低于该时长标红闪烁，单位小时，0 不提醒）</span>
+            <input
+              name="depletion_alert_hours"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="any"
+              value="1"
+              required
+            />
+          </label>
+          <label data-field="auth_token" class="wide">
+            <span>Bearer Token / Cookie</span>
+            <textarea name="auth_token" rows="4" autocomplete="off" placeholder="sub2api 填 Bearer Token，new-api 填整段 Cookie"></textarea>
+          </label>
+          <label data-field="refresh_token" class="wide">
+            <span>Refresh Token（自动续期）</span>
+            <textarea name="refresh_token" rows="2" autocomplete="off" placeholder="sub2api 填 rt_ 开头的 refresh token；新版 new-api 填 new_api_refresh 的 Cookie 值，用于 Bearer 过期后自动续期"></textarea>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button class="secondary-action" type="button" data-close-modal>取消</button>
+          <button id="site-modal-submit" class="primary-action" type="submit">保存站点</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="group-model-modal" class="site-modal">
+      <form id="group-model-form" class="site-form" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Group Model</p>
+            <h3 id="group-model-modal-title">编辑分组模型</h3>
+            <p id="group-model-modal-subtitle" class="page-subtitle"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-group-model-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <label class="wide">
+            <span>使用模型</span>
+            <select id="group-model-select" name="selected_model"></select>
+          </label>
+          <label class="wide">
+            <span>测试模型</span>
+            <select id="group-test-model-select" name="test_model"></select>
+          </label>
+          <label class="wide">
+            <span>手动添加模型</span>
+            <div class="inline-field">
+              <input id="group-model-manual" type="text" placeholder="例如 gpt-4o-mini / claude-sonnet-4-5" />
+              <button id="add-group-model-option" class="secondary-action" type="button">添加</button>
+            </div>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button id="fetch-group-models" class="secondary-action" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12a9 9 0 0 1-15 6.7M3 12a9 9 0 0 1 15-6.7M21 4v6h-6M3 20v-6h6" />
+            </svg>
+            拉取模型列表
+          </button>
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-group-model-modal>取消</button>
+            <button id="group-model-submit" class="primary-action" type="submit">保存模型</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="group-preset-modal" class="site-modal">
+      <form id="group-preset-form" class="site-form" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Filter Preset</p>
+            <h3 id="group-preset-modal-title">保存筛选预设</h3>
+            <p class="page-subtitle">保存当前分组筛选条件，之后可在预设下拉框中一键应用。</p>
+          </div>
+          <button class="icon-button" type="button" data-close-group-preset-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="group-preset-fields" class="form-grid">
+          <label class="wide">
+            <span>预设名称</span>
+            <input id="group-preset-name" type="text" placeholder="例如 低价 OpenAI" required />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-group-preset-modal>取消</button>
+            <button id="group-preset-submit" class="primary-action" type="submit">保存预设</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="create-account-modal" class="site-modal">
+      <form id="create-account-form" class="site-form" method="dialog">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">My Site</p>
+            <h3 id="create-account-modal-title">创建账号</h3>
+            <p id="create-account-context" class="page-subtitle"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-create-account-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="create-account-existing" class="page-subtitle" hidden></div>
+
+        <div class="form-grid">
+          <label class="wide">
+            <span>我的站点</span>
+            <select name="my_site_id" id="create-account-my-site" required></select>
+          </label>
+          <label class="wide">
+            <span>分组</span>
+            <select name="my_group_id" id="create-account-my-group" required></select>
+          </label>
+          <label class="wide" id="create-account-responses-field">
+            <span>Responses API 支持（目标分组为 OpenAI 时生效）</span>
+            <select name="responses_mode" id="create-account-responses-mode">
+              <option value="force_responses" selected>强制 Responses</option>
+              <option value="auto">自动（跟随探测）</option>
+              <option value="force_chat_completions">强制 Chat Completions</option>
+            </select>
+          </label>
+          <label>
+            <span>池模式（错误不标记账号状态）</span>
+            <input type="checkbox" name="pool_mode" id="create-account-pool-mode" checked />
+          </label>
+          <label>
+            <span>重试次数（0-10）</span>
+            <input type="number" name="pool_mode_retry_count" id="create-account-pool-retry-count" min="0" max="10" step="1" value="3" />
+          </label>
+          <label class="wide">
+            <span>排除模型（空格或逗号分隔，建账号时同步上游模型并剔除）</span>
+            <input type="text" name="excluded_models" id="create-account-excluded-models" value="gpt-5.6-luna gpt-image-1 gpt-image-2 gpt-image-1.5" />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-create-account-modal>取消</button>
+            <button id="create-account-submit" class="primary-action" type="submit">创建账号</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="proxy-edit-modal" class="site-modal">
+      <form id="proxy-edit-form" class="site-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Proxy</p>
+            <h3 id="proxy-edit-modal-title">编辑代理</h3>
+            <p id="proxy-edit-context" class="page-subtitle"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-proxy-edit-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            <span>名称</span>
+            <input name="name" placeholder="default" required />
+          </label>
+          <label>
+            <span>服务商</span>
+            <input name="provider" list="proxy-provider-options" maxlength="100" autocomplete="off" placeholder="输入或选择已有服务商（可选）" />
+          </label>
+          <label>
+            <span>协议</span>
+            <select name="protocol">
+              <option value="http">HTTP</option>
+              <option value="https">HTTPS</option>
+              <option value="socks5">SOCKS5</option>
+              <option value="socks5h">SOCKS5H</option>
+            </select>
+          </label>
+          <label>
+            <span>Host</span>
+            <input name="host" required />
+          </label>
+          <label>
+            <span>端口</span>
+            <input name="port" type="number" min="1" max="65535" required />
+          </label>
+          <label>
+            <span>用户名</span>
+            <input name="username" autocomplete="off" placeholder="可选" />
+          </label>
+          <label>
+            <span>密码</span>
+            <input name="password" type="text" autocomplete="off" placeholder="可选，明文保存" />
+          </label>
+          <label>
+            <span>状态</span>
+            <select name="status">
+              <option value="active">启用</option>
+              <option value="inactive">停用</option>
+            </select>
+          </label>
+          <label>
+            <span>到期时间</span>
+            <input name="expires_at" type="datetime-local" />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-proxy-edit-modal>关闭</button>
+            <button id="proxy-edit-submit" class="primary-action" type="submit">保存修改</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="proxy-import-modal" class="site-modal">
+      <div class="site-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Proxy</p>
+            <h3 id="proxy-import-modal-title">批量导入代理</h3>
+            <p class="page-subtitle">每行输入一个代理，支持四种格式；ip:port:username:password 与 ip:port 默认按 socks5 导入。</p>
+          </div>
+          <button class="icon-button" type="button" data-close-proxy-import-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="proxy-import-panel" class="proxy-import-panel">
+          <label class="proxy-import-provider">
+            <span>服务商（统一应用到本次导入）</span>
+            <input id="proxy-import-provider" list="proxy-provider-options" maxlength="100" autocomplete="off" placeholder="输入新服务商，或选择已有服务商" aria-describedby="proxy-import-naming" />
+          </label>
+          <p id="proxy-import-naming" class="proxy-import-naming"></p>
+          <textarea
+            id="proxy-import-input"
+            rows="8"
+            placeholder="每行输入一个代理，支持以下格式：&#10;socks5://user:pass@192.168.1.1:1080&#10;http://192.168.1.1:8080&#10;192.168.1.1:1080:user:pass（默认 socks5）&#10;192.168.1.1:1080（默认 socks5）"
+          ></textarea>
+          <label class="proxy-import-expiry">
+            <span>到期时间（统一应用到本次导入，留空表示长期有效）</span>
+            <input id="proxy-import-expires-at" type="datetime-local" />
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <span id="proxy-import-stats" class="proxy-import-stats">等待输入…</span>
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-proxy-import-modal>关闭</button>
+            <button id="proxy-import-submit" class="primary-action" type="button" disabled>导入</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="proxy-export-modal" class="site-modal">
+      <div class="site-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Proxy</p>
+            <h3 id="proxy-export-modal-title">导出代理</h3>
+            <p id="proxy-export-context" class="page-subtitle"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-proxy-export-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="proxy-export-formats" class="proxy-export-formats"></div>
+        <textarea id="proxy-export-preview" rows="8" readonly></textarea>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-proxy-export-modal>关闭</button>
+            <button id="proxy-export-download" class="primary-action" type="button">下载</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="linked-accounts-modal" class="site-modal">
+      <div class="site-form">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">My Site</p>
+            <h3 id="linked-accounts-modal-title">映射账号</h3>
+            <p id="linked-accounts-context" class="page-subtitle"></p>
+          </div>
+          <button class="icon-button" type="button" data-close-linked-accounts-modal aria-label="关闭">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="linked-accounts-list" class="linked-accounts-list"></div>
+
+        <div class="modal-actions">
+          <div class="modal-actions-right">
+            <button class="secondary-action" type="button" data-close-linked-accounts-modal>关闭</button>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <datalist id="proxy-provider-options"></datalist>
+    <script type="module" src="/src/app.mjs?v=20261006-oauth-onboarding"></script>
+  </body>
+</html>

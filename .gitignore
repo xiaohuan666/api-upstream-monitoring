@@ -1,0 +1,53 @@
+# Dependencies and generated files
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv*/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.docker.example
+compose.host.yml
+compose.override.yml
+compose.override.yaml
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local databases and backups
+*.sql
+*.dump
+*.bak
+*.backup
+*.sqlite
+*.sqlite3
+*.db
+backups/
+data/
+
+# Internal work records and browser artifacts
+/tasks/
+/docs/superpowers/
+.superpowers/
+.playwright-cli/
+.auth/
+.browser-state/
+/storage-state*.json
+/cookies*.json
+*.har
+playwright-report/
+test-results/
+
+# Local screenshots and share archives
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+*.tar.gz
+*.zip

@@ -1,0 +1,46 @@
+services:
+  app:
+    init: true
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-api_upstream_monitoring}:${POSTGRES_PASSWORD:-api_upstream_monitoring}@postgres:5432/${POSTGRES_DB:-api_upstream_monitoring}
+      PORT: 5173
+      NODE_ENV: production
+      OAUTH_ONBOARDING_CREDENTIAL_KEY: ${OAUTH_ONBOARDING_CREDENTIAL_KEY:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:${APP_PORT:-5173}:5173"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "node -e \"fetch('http://127.0.0.1:5173/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\"",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-api_upstream_monitoring}
+      POSTGRES_USER: ${POSTGRES_USER:-api_upstream_monitoring}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-api_upstream_monitoring}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-api_upstream_monitoring} -d ${POSTGRES_DB:-api_upstream_monitoring}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

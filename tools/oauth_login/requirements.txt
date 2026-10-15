@@ -1,0 +1,2 @@
+# Required for the reference HTTP transport; no browser/requests fallback.
+curl_cffi==0.16.3

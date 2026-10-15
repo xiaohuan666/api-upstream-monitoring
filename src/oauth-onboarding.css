@@ -1,0 +1,197 @@
+/* 局部样式：主题、字体、primary/secondary/text-button 沿用现有管理台。 */
+.oauth-onboarding {
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  max-height: 100%;
+  overflow: auto;
+  color: var(--ink);
+  padding: 16px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.oauth-onboarding [hidden] { display: none !important; }
+.oauth-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.oauth-heading a { text-decoration: none; flex-shrink: 0; }
+#fleet-summary.oauth-summary-hidden { display: none; }
+.oauth-heading h2 { font-size: 23px; }
+.oauth-notice {
+  padding: 11px 14px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--amber);
+  border-radius: 6px;
+  background: var(--soft);
+  color: var(--muted);
+}
+.oauth-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.oauth-card { min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.oauth-card h3 { font-size: 15px; }
+.oauth-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.oauth-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.oauth-fields label, .oauth-search-label { display: flex; flex-direction: column; gap: 5px; min-width: 0; font-weight: 600; }
+.oauth-wide { grid-column: 1 / -1; }
+/* 主 App 会增强原生下拉；仅调整本页增强器的尺寸，保留其交互与主题。 */
+.oauth-fields .searchable-select { display: flex; width: 100%; min-width: 0; }
+.oauth-fields .searchable-select-trigger { width: 100%; min-width: 0; max-width: none; min-height: 38px; background: var(--panel); font-size: 13px; font-weight: 400; }
+.oauth-onboarding input:not([type='checkbox']), .oauth-onboarding select {
+  width: 100%;
+  min-width: 0;
+  min-height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 400;
+}
+.oauth-onboarding input:focus-visible, .oauth-onboarding select:focus-visible, .oauth-onboarding button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+.oauth-onboarding :disabled { cursor: not-allowed; }
+.oauth-muted { color: var(--muted); font-size: 12px; font-weight: 400; }
+.oauth-groups { min-width: 0; margin: 16px 0 0; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
+.oauth-groups legend { padding: 0 5px; font-weight: 600; }
+.oauth-groups legend span { margin-left: 8px; color: var(--muted); font-size: 12px; font-weight: 400; }
+.oauth-search-label { font-size: 12px; }
+.oauth-group-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 6px; max-height: 240px; overflow: auto; padding: 3px; }
+.oauth-group-option { display: flex; align-items: center; gap: 8px; padding: 8px; min-height: 40px; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
+.oauth-group-option:has(:checked) { background: var(--green-soft); border-color: var(--green); }
+.oauth-group-option:hover { background: var(--soft); }
+.oauth-group-option input { width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--green); }
+.oauth-group-option span { min-width: 0; overflow-wrap: anywhere; }
+
+.oauth-feedback { margin: 8px 0; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.oauth-feedback:empty { display: none; }
+.oauth-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.oauth-actions button { white-space: normal; }
+.oauth-current { display: grid; gap: 6px; padding: 12px; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); overflow-wrap: anywhere; }
+.oauth-current-email { font-weight: 600; }
+.oauth-stage { color: var(--green); font-weight: 600; }
+.oauth-job-message { color: var(--muted); }
+.oauth-status { width: fit-content; font-size: 11px; font-weight: 600; border-radius: 4px; padding: 3px 6px; background: var(--blue-soft); color: var(--blue); }
+.oauth-status-succeeded { color: var(--green); background: var(--green-soft); }
+.oauth-status-failed { color: var(--red); background: var(--red-soft); }
+.oauth-status-needs_attention, .oauth-status-uncertain { color: var(--amber); background: var(--amber-soft); }
+.oauth-job-list { display: grid; gap: 10px; }
+.oauth-job { min-width: 0; display: grid; gap: 5px; padding: 10px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.oauth-job-select { display: flex; gap: 8px; justify-content: space-between; align-items: flex-start; text-align: left; color: var(--ink); border: 0; border-radius: 4px; padding: 4px 0; background: transparent; }
+.oauth-job-select strong { min-width: 0; font-size: 13px; overflow-wrap: anywhere; }
+.oauth-job-select .oauth-status { flex-shrink: 0; }
+.oauth-job-select[aria-pressed='true'] strong { color: var(--green); }
+.oauth-job > button.secondary-action { justify-self: start; min-height: 34px; padding: 5px 9px; font-size: 12px; }
+@media (max-width: 760px) {
+  .oauth-onboarding { padding: 12px; }
+  .oauth-layout { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .oauth-card { padding: 12px; }
+  .oauth-fields { grid-template-columns: minmax(0, 1fr); }
+  .oauth-onboarding input:not([type='checkbox']), .oauth-onboarding select { font-size: 16px; }
+  .oauth-actions { flex-direction: column; }
+  .oauth-actions button { width: 100%; }
+}
+
+/* 只在 OAuth 页可见时解除管理台窄屏固定高度，避免导航挤掉表单和任务。 */
+@media (max-width: 920px) {
+  body:has(.oauth-onboarding:not([hidden])) { height: auto; min-height: 100vh; overflow: auto; }
+  .app-shell:has(.oauth-onboarding:not([hidden])) { height: auto; min-height: 100vh; overflow: visible; }
+  .workspace:has(.oauth-onboarding:not([hidden])) { overflow: visible; }
+  #oauth-accounts-panel:has(.oauth-onboarding:not([hidden])) { flex: none; overflow: visible; }
+  #oauth-accounts-panel .oauth-onboarding { max-height: none; overflow: visible; }
+}
+
+.oauth-credential-input { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.oauth-credential-input label { display: flex; flex-direction: column; gap: 5px; min-width: 0; font-weight: 600; }
+.oauth-credential-input p { grid-column: 1 / -1; margin: 0; }
+@media (max-width: 760px) {
+  .oauth-credential-input { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 批量入口保持管理台主题，仅增加本页的参数密度与秘密输入边界。 */
+.oauth-onboarding textarea {
+  width: 100%; min-width: 0; border: 1px solid var(--line-strong); border-radius: 6px;
+  padding: 10px; background: var(--panel); color: var(--ink); resize: vertical;
+  font: inherit; line-height: 1.6;
+}
+.oauth-onboarding textarea:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.oauth-import-options { min-width: 0; margin: 16px 0 0; border: 1px solid var(--line); border-radius: 6px; padding: 12px; }
+.oauth-import-options legend { padding: 0 5px; font-weight: 600; }
+.oauth-model-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap: 6px; margin: 8px 0; }
+.oauth-fields .oauth-model-option, .oauth-fields .oauth-toggle { display: flex; flex-direction: row; align-items: center; gap: 8px; min-width: 0; }
+.oauth-model-option { padding: 7px 8px; border: 1px solid var(--line); border-radius: 5px; font-size: 12px; }
+.oauth-model-option:has(:checked) { border-color: var(--green); background: var(--green-soft); }
+.oauth-model-option span { overflow-wrap: anywhere; }
+.oauth-model-option input, .oauth-toggle input { accent-color: var(--green); flex: 0 0 auto; }
+.oauth-model-add { display: flex; gap: 8px; }
+.oauth-model-add button { flex: 0 0 auto; }
+.oauth-advanced { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.oauth-advanced summary { cursor: pointer; font-weight: 600; color: var(--muted); }
+.oauth-advanced .oauth-fields { margin-top: 12px; }
+@media (max-width: 760px) {
+  .oauth-onboarding textarea { font-size: 16px; }
+  .oauth-model-list { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 表单与任务职责分离，继续使用管理台现有主题变量。 */
+.oauth-import-layout { grid-template-columns: minmax(0, 1fr) minmax(270px, 310px); gap: 28px; max-width: none; }
+.oauth-form-main { min-width: 0; }
+.oauth-submit-summary { min-width: 0; position: sticky; top: 0; padding: 22px; border: 1px solid var(--line); border-radius: 10px; background: var(--soft); }
+.oauth-submit-summary h3 { font-size: 15px; }
+.oauth-summary-count { display: flex; align-items: baseline; gap: 8px; margin: 14px 0 18px; color: var(--muted); }
+.oauth-summary-count strong { color: var(--green); font-size: 36px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.oauth-summary-details { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; font-size: 12px; }
+.oauth-summary-details dt { color: var(--muted); }
+.oauth-summary-details dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+.oauth-submit-summary .oauth-actions { flex-direction: column; padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--line); }
+.oauth-submit-summary .oauth-actions button { width: 100%; min-height: 44px; }
+.oauth-parse-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.oauth-parse-actions button { min-height: 40px; }
+.oauth-parse-actions .oauth-feedback { margin: 0; }
+.oauth-destination-fields { grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); }
+.oauth-form-main .oauth-groups, .oauth-form-main .oauth-import-options { border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 16px 0 0; margin-top: 24px; }
+.oauth-form-main legend { padding: 0 10px 0 0; }
+.oauth-group-toolbar { display: flex; gap: 16px; align-items: end; margin-bottom: 10px; }
+.oauth-group-toolbar .oauth-search-label { flex: 1; }
+.oauth-selected-toggle { display: flex; align-items: center; gap: 6px; min-height: 38px; white-space: nowrap; }
+.oauth-selected-toggle input { accent-color: var(--green); }
+.oauth-selected-groups { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.oauth-selected-groups:empty { display: none; }
+.oauth-group-chip { border: 1px solid var(--line); border-radius: 5px; padding: 5px 8px; background: var(--green-soft); color: var(--green); font: inherit; font-size: 12px; overflow-wrap: anywhere; max-width: 100%; }
+@media (max-width: 1100px) {
+  .oauth-import-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .oauth-submit-summary { position: static; }
+}
+@media (max-width: 760px) {
+  .oauth-heading { align-items: flex-start; margin-bottom: 18px; }
+  .oauth-heading h2 { font-size: 21px; }
+  .oauth-submit-summary { padding: 16px; }
+  .oauth-parse-actions .oauth-feedback { flex-basis: 100%; }
+  .oauth-group-chip { min-height: 40px; }
+}
+.oauth-confirmation:empty { display: none; }
+.oauth-confirmation a { display: inline-flex; margin-top: 8px; text-decoration: none; }
+.oauth-task-toolbar { display: flex; align-items: end; gap: 10px; margin-bottom: 14px; }
+.oauth-task-toolbar label { flex: 1; }
+.oauth-task-toolbar button { flex: 0 0 auto; }
+.oauth-batch-list { display: grid; gap: 14px; }
+.oauth-batch { min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 14px; overflow-wrap: anywhere; }
+.oauth-batch-toggle { border: 0; background: transparent; color: var(--ink); padding: 4px 0; font: inherit; font-weight: 600; text-align: left; min-width: 0; }
+.oauth-batch-toggle::before { content: '\203a'; display: inline-block; margin-right: 8px; color: var(--green); }
+.oauth-batch-toggle[aria-expanded='true']::before { transform: rotate(90deg); }
+.oauth-batch-counts { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.oauth-task-times { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.oauth-pagination { align-items: center; justify-content: flex-end; }
+.oauth-rerun-confirmation { padding: 14px; margin-bottom: 16px; background: var(--amber-soft); border: 1px solid var(--amber); border-radius: 6px; }
+.oauth-rerun-confirmation p { margin-top: 8px; overflow-wrap: anywhere; }
+.oauth-task-page button:focus-visible, .oauth-confirmation a:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .oauth-task-toolbar { flex-wrap: wrap; }
+  .oauth-task-toolbar label { flex-basis: 100%; }
+  .oauth-batch { padding: 10px; }
+  .oauth-batch .oauth-card-heading { align-items: flex-start; flex-direction: column; }
+  .oauth-pagination { align-items: stretch; }
+}
+@media (max-width: 920px) {
+  #oauth-tasks-panel:has(.oauth-onboarding:not([hidden])) { flex: none; overflow: visible; }
+  #oauth-tasks-panel .oauth-onboarding { max-height: none; overflow: visible; }
+}

@@ -1,0 +1,27 @@
+Sentinel browser compatibility runner adaptation
+
+Source: zc-zhangchen/any-auto-register
+Repository: https://github.com/zc-zhangchen/any-auto-register
+Fixed revision: 44c27a8a2ae5e08d37bb68ab007a335782b43467
+Source files reviewed (read-only):
+  platforms/chatgpt/protocol/sentinel.py
+  platforms/chatgpt/protocol/sentinel_quickjs.py
+  platforms/chatgpt/protocol/openai_sentinel_quickjs.js
+  platforms/chatgpt/protocol/fingerprint.py
+
+sentinel_runner.cjs retains and adapts the browser compatibility objects,
+iframe proof/challenge exchange, and behavior dispatch from the fixed JS source.
+The Python wrapper and OS network restriction launcher are new implementations.
+Removed: disk SDK cache, inherited environment, debug instrumentation, fallback
+proof/enforcement paths, raw trace/error output, registration framework imports.
+
+No LICENSE/NOTICE file was present in the source repository at this revision.
+The fixed README states: "MIT License — 仅供学习研究，禁止商业使用。"
+The project user confirmed noncommercial monitoring/push use on 2026-10-06.
+This attribution is not a license grant; confirm upstream reuse rights before
+external redistribution. Remote OpenAI SDK bytes are not vendored or saved.
+
+node:vm is a compatibility context, NOT a security sandbox. Node permissions,
+OS network/signal restrictions, disabled core dumps/file output, input/output limits and deadlines are separate controls;
+these controls are not a claim of complete hostile-code containment or of
+successful Sentinel challenges/login. Unknown SDK formats fail closed.

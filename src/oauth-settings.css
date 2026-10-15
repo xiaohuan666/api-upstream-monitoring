@@ -1,0 +1,14 @@
+/* 只约束入池设置面板，保留共享 .panel-view.hidden 的隐藏规则。 */
+#settings-oauth-onboarding-panel { overflow-y: auto; }
+#settings-oauth-onboarding-panel > * { flex-shrink: 0; }
+#settings-oauth-onboarding-panel .site-form { width: 100%; max-width: 460px; gap: 12px; }
+#settings-oauth-onboarding-panel input { width: 100%; min-height: 38px; padding: 8px 10px; }
+#settings-oauth-onboarding-panel .site-form p { margin: 0; font-size: 12px; color: var(--muted); }
+#settings-oauth-onboarding-panel .site-form p.is-error { color: var(--red); }
+#settings-oauth-onboarding-panel .modal-actions { justify-content: flex-start; flex-wrap: wrap; }
+@media (max-width: 620px) {
+  body:has(#settings-oauth-onboarding-panel:not(.hidden)) { height: auto; min-height: 100vh; overflow: auto; }
+  .app-shell:has(#settings-oauth-onboarding-panel:not(.hidden)) { height: auto; min-height: 100vh; overflow: visible; }
+  .workspace:has(#settings-oauth-onboarding-panel:not(.hidden)) { overflow: visible; }
+  #settings-oauth-onboarding-panel { overflow: visible; }
+}

@@ -1,0 +1,49 @@
+/* Keep the task workspace independent from the onboarding form layout. */
+.oauth-task-page .oauth-heading { align-items: center; gap: 16px; }
+.oauth-task-page .oauth-create-link { text-decoration: none; white-space: nowrap; }
+.oauth-task-page .oauth-task-toolbar { gap: 8px; margin-bottom: 8px; }
+.oauth-task-page .oauth-search-label { max-width: 380px; }
+.oauth-task-page .oauth-task-list-meta { display: flex; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap; }
+.oauth-task-page .oauth-task-list-meta p { margin: 0; }
+.oauth-task-page .oauth-task-list-meta time { white-space: nowrap; }
+.oauth-task-page .oauth-feedback:empty { display: none; }
+.oauth-task-page .oauth-batch-list { gap: 0; margin-top: 12px; border-top: 1px solid var(--line); }
+.oauth-task-page .oauth-batch { padding: 12px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+.oauth-task-page .oauth-batch-row { display: grid; grid-template-columns: minmax(210px, 1fr) max-content minmax(0, 1.2fr) 88px; align-items: center; gap: 16px; }
+.oauth-task-page .oauth-batch-row > time { font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 11px; }
+.oauth-task-page .oauth-batch-toggle { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oauth-task-page .oauth-batch-counts { flex-wrap: nowrap; gap: 4px; margin: 0; align-items: center; }
+.oauth-task-page .oauth-batch-counts .oauth-status { padding: 3px 6px; white-space: nowrap; }
+.oauth-task-page .oauth-batch-actions { text-align: right; }
+.oauth-task-page .oauth-batch-actions button { font-size: 11px; padding: 6px 8px; white-space: nowrap; }
+.oauth-task-page .oauth-rerun-subtle { color: var(--muted); }
+.oauth-task-page .oauth-rerun-subtle:hover { color: var(--green); }
+.oauth-task-page .oauth-focus-marker { color: var(--green); font-size: 10px; font-weight: 400; margin-left: 8px; white-space: nowrap; }
+.oauth-task-page .oauth-read-only { font-size: 11px; white-space: nowrap; }
+.oauth-task-page .oauth-job-list { margin-top: 12px; }
+.oauth-task-page .oauth-job-list[hidden] { display: none; }
+.oauth-task-page .oauth-job .oauth-actions:empty { display: none; }
+.oauth-task-page button:focus-visible, .oauth-task-page a:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+@media (max-width: 1100px) {
+  .oauth-task-page .oauth-batch-row { grid-template-columns: minmax(170px, 1fr) max-content 88px; gap: 8px; }
+  .oauth-task-page .oauth-batch-toggle { white-space: normal; }
+  .oauth-task-page .oauth-batch-counts { grid-column: 1 / -1; grid-row: 2; flex-wrap: wrap; }
+}
+@media (max-width: 600px) {
+  .oauth-task-page .oauth-heading { flex-direction: row; }
+  .oauth-task-page .oauth-task-toolbar label { max-width: none; }
+  .oauth-task-page .oauth-batch-row { grid-template-columns: minmax(0, 1fr) max-content; }
+  .oauth-task-page .oauth-batch-row > time { grid-column: 1 / -1; grid-row: 2; white-space: normal; }
+  .oauth-task-page .oauth-batch-counts { grid-row: 3; }
+  .oauth-task-page .oauth-batch-actions { grid-column: 2; grid-row: 1; }
+  .oauth-task-page .oauth-batch-toggle { font-size: 12px; }
+}
+.oauth-task-page .oauth-task-toolbar { flex-wrap: wrap; }
+.oauth-task-page .oauth-search-label { flex: 2 1 240px; }
+.oauth-task-page .oauth-task-filter-label { display: flex; flex: 1 1 125px; flex-direction: column; gap: 5px; min-width: 0; font-size: 12px; font-weight: 600; }
+@media (max-width: 760px) {
+  .oauth-task-page .oauth-task-toolbar .oauth-task-filter-label { flex-basis: calc(50% - 8px); }
+}
+
+.oauth-task-page .oauth-task-site-control { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.oauth-task-page .oauth-task-site-control select { flex: 1; }

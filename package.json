@@ -1,0 +1,15 @@
+{
+  "name": "api-upstream-monitoring",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check src/auto-refresh-settings.mjs && node --check src/currency-display.mjs && node --check src/domain.mjs && node --check src/db.mjs && node --check src/http.mjs && node --check src/snapshots.mjs && node --check src/my-sites.mjs && node --check src/my-sites-admin.mjs && node --check src/my-site-accounts.mjs && node --check src/my-site-rate-sync.mjs && node --check src/model-probe.mjs && node --check src/model-test-display.mjs && node --check src/client-refresh.mjs && node --check src/client-links.mjs && node --check src/client-route.mjs && node --check src/group-filter.mjs && node --check src/searchable-select.mjs && node --check src/group-rows.mjs && node --check src/group-view-preferences.mjs && node --check src/site-view-preferences.mjs && node --check src/proxy-provider.mjs && node --check src/proxy-identity.mjs && node --check src/proxy-probe.mjs && node --check src/proxy-import.mjs && node --check src/proxy-export.mjs && node --check src/my-site-proxies.mjs && node --check src/upstreams/http2-fetch.mjs && node --check src/upstreams/api-transport.mjs && node --check src/upstreams/sync-strategy.mjs && node --check src/upstreams/sub2api.mjs && node --check src/upstreams/newapi.mjs && node --check src/upstreams/sub2api-flow.mjs && node --check src/upstreams/captcha-ocr.mjs && node --check src/app.mjs && node --check src/group-rate-changes.mjs && node --check src/group-rate-store.mjs && node --check src/group-rate-view.mjs && node --check src/rate-history-preferences.mjs && node --check src/rate-history-column-state.mjs && node --check src/rate-history-table.mjs && node --check src/group-rate-metadata.mjs && node --check src/oauth-totp.mjs && node --check src/oauth-login.mjs && node --check src/oauth-login-retry.mjs && node --check src/oauth-proxy-lock.mjs && node --check src/oauth-execution-settings.mjs && node --check src/oauth-settings-view.mjs && node --check src/oauth-sub2-client.mjs && node --check src/oauth-onboarding-store.mjs && node --check src/oauth-onboarding.mjs && node --check src/oauth-onboarding-http.mjs && node --check src/oauth-onboarding-view.mjs && node --check src/oauth-account-identity.mjs && node --check src/oauth-credential-input.mjs && node --check src/oauth-import-options.mjs && node --check src/oauth-onboarding-batch.mjs && node --check src/oauth-onboarding-batch-store.mjs && node --check src/oauth-onboarding-queue.mjs && node --check src/oauth-import-options-view.mjs && node --check src/oauth-credential-vault.mjs && node --check src/oauth-task-history-store.mjs && node --check src/oauth-task-replay.mjs && node --check src/oauth-tasks-view.mjs && node --check src/public-assets.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.22.0",
+    "playwright": "^1.61.1"
+  }
+}
